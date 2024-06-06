@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MoviesPage from './components/movies/MoviesPage';
+import AddMoviePage from './components/movies/AddMoviePage';
+import DirectorsPage from './components/movies/DirectorsPage';
+import AddDirectorPage from './components/movies/AddDirectorPage';
+import Login from './components/movies/Login';
+import Register from './components/movies/Register';
+import Layout from './components/movies/Layout';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<MoviesPage />} />
+          <Route path="/movies/create" element={<AddMoviePage history={undefined} />} />
+          <Route path="/directors" element={<DirectorsPage />} />
+          <Route path="/directors/create" element={<AddDirectorPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
-}
+};
 
 export default App;
