@@ -1,27 +1,34 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MoviesPage from './components/movies/MoviesPage';
-import AddMoviePage from './components/movies/AddMoviePage';
-import DirectorsPage from './components/movies/DirectorsPage';
-import AddDirectorPage from './components/movies/AddDirectorPage';
-import Login from './components/movies/Login';
-import Register from './components/movies/Register';
-import Layout from './components/movies/Layout';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Header from './components/Header';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import MoviesPage from './pages/MoviesPage';
+import SingleMoviePage from './pages/SingleMoviePage';
+import DirectorsPage from './pages/DirectorsPage';
+import SingleDirectorPage from './pages/SingleDirectorPage';
+import CreateMoviePage from './pages/CreateMoviePage';
+import CreateDirectorPage from './pages/CreateDirectorPage';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Layout>
+    <Provider store={store}>
+      <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<MoviesPage />} />
-          <Route path="/movies/create" element={<AddMoviePage history={undefined} />} />
+          <Route path="/movies/:id" element={<SingleMoviePage />} />
+          <Route path="/movies/create" element={<CreateMoviePage />} />
           <Route path="/directors" element={<DirectorsPage />} />
-          <Route path="/directors/create" element={<AddDirectorPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/directors/:id" element={<SingleDirectorPage />} />
+          <Route path="/directors/create" element={<CreateDirectorPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
-      </Layout>
-    </Router>
+      </Router>
+    </Provider>
   );
 };
 

@@ -1,12 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import rootReducer from './reducers/rootReducer';
-import rootSaga from './sagas/rootSaga';
+import { combineReducers } from 'redux';
+import authSlice from './redux/slices/authSlice';
+import movieReducer from './redux/reducers/movieReducer';
+import directorReducer from './redux/reducers/directorReducer';
+const rootReducer = combineReducers({
+  auth: authSlice,
+  movies: movieReducer,
+  directors: directorReducer,
+});
 
-const sagaMiddleware = createSagaMiddleware();
+export type RootState = ReturnType<typeof rootReducer>;
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(rootSaga);
-
-export default store;
+export default rootReducer;
